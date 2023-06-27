@@ -21,8 +21,13 @@ find_package(SFML 2.5
     system window graphics network audio REQUIRED)
 
 set(SOURCE_DIR ${CMAKE_SOURCE_DIR})
-set(SOURCES ${SOURCE_DIR}/src/main.cpp)
-set(HEADERS ${SOURCE_DIR}/include/*.h)
+set(SOURCES 
+    ${SOURCE_DIR}/src/main.cpp
+    ${SOURCE_DIR}/src/document.cpp
+    ${SOURCE_DIR}/src/RenderEditor.cpp)
+
+# I don't believe we need to define HEADERS
+# set(HEADERS ${SOURCE_DIR}/include/*.h)
 
 add_executable(texteditor ${SOURCES})
 

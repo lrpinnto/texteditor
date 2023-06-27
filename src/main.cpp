@@ -1,12 +1,13 @@
-#include <iostream>
-#include <vector>
 #include <SFML/Graphics.hpp>
+#include "../include/document.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(720, 405), "Test Window");
+    document doc;
+
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Text Editor");
     window.setVerticalSyncEnabled(true);
-    sf::Color backgroundColor = sf::Color(21, 29, 45);
+    sf::Color backgroundColor = sf::Color(255, 255, 255);
     window.display();
 
     while (window.isOpen())
@@ -18,6 +19,11 @@ int main()
             {
                 window.close();
             }
+            if (event.type == sf::Event::Resized)
+            {
+                
+            }
+            
         }
     }
     window.clear(backgroundColor);
