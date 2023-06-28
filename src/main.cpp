@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "../include/document.h"
+#include "../include/RenderEditor.h"
 
 int main()
 {
@@ -7,8 +8,12 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Text Editor");
     window.setVerticalSyncEnabled(true);
-    sf::Color backgroundColor = sf::Color(255, 255, 255);
+    sf::Color backgroundColor = sf::Color(50, 25, 25);
     window.display();
+
+    Content content{doc};
+
+    RenderEditor editorView{window, content};
 
     while (window.isOpen())
     {
@@ -21,11 +26,12 @@ int main()
             }
             if (event.type == sf::Event::Resized)
             {
-                
+                editorView.setCameraBounds(event.size.width, event.size.height);
             }
-            
         }
+        window.clear(backgroundColor);
+        window.setView(editorView.getCameraView());
+        editorView.draw(window);
+        window.display();
     }
-    window.clear(backgroundColor);
-    window.display();
 }
