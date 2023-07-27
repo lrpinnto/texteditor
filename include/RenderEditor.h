@@ -17,6 +17,8 @@ public:
 
     void setCameraBounds(int width, int height);
 
+    void setFontSize(int fontSize);
+
 private:
     void drawLines(sf::RenderWindow &window);
 
@@ -24,4 +26,5 @@ private:
 
     sf::View camera;
     sf::Font font;
+    int fontSize; // WHERE SHOULD THIS BE SET?
 };

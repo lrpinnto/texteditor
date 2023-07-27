@@ -12,5 +12,5 @@ int Content::linesCount()
 
 sf::String Content::getLine(int lineNumber)
 {
-    return sf::String(std::string("bla bla bla"));
+    return this->doc.getLine(lineNumber);
 }

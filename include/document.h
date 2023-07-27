@@ -1,6 +1,9 @@
 #pragma once
 #include <list>
-#include <vector>
+#include <string>
+#include <SFML/Graphics.hpp>
+#include <stdexcept>
+#include <sstream>
 
 using Line = std::vector<char>;
 
@@ -30,8 +33,10 @@ class document
 {
 public:
     document() { lines.push_back(Line{}); }
+    void init(const std::string&);
     Text_iterator begin();
     Text_iterator end();
+    sf::String getLine(int lineNumber);
 
 private:
     std::list<Line> lines;

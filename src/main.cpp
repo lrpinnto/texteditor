@@ -6,9 +6,11 @@ int main()
 {
     document doc;
 
+    doc.init("Test TExt");
+
     sf::RenderWindow window(sf::VideoMode(800, 600), "Text Editor");
     window.setVerticalSyncEnabled(true);
-    sf::Color backgroundColor = sf::Color(50, 25, 25);
+    sf::Color backgroundColor = sf::Color::White;
     window.display();
 
     Content content{doc};
