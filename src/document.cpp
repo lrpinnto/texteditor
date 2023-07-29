@@ -44,7 +44,7 @@ sf::String document::getLine(int lineNumber) {
 // TO DO: CHANGE THIS TO READ FILES
 void document::init(const std::string& text)
 {
-    std::stringstream ss {"1 some text\n2 to test\n3 newlines\n4 on this window\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n"};
+    std::stringstream ss {"1 some text\n2 to test\n3 newlines\n4 on this window\nrandomrandomrandomrandomrandom"};
     this->lines.push_front(std::vector<char>(text.begin(),text.end()));
     std::string s;
     while (std::getline(ss,s))

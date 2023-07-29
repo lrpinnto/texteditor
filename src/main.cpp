@@ -29,6 +29,7 @@ int main()
             if (event.type == sf::Event::Resized)
             {
                 editorView.setCameraBounds(event.size.width, event.size.height);
+                //editorView.updateCursorMatrix();
             }
         }
         window.clear(backgroundColor);
