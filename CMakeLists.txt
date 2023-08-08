@@ -25,7 +25,8 @@ set(SOURCES
     ${SOURCE_DIR}/src/main.cpp
     ${SOURCE_DIR}/src/document.cpp
     ${SOURCE_DIR}/src/RenderEditor.cpp
-    ${SOURCE_DIR}/src/Content.cpp)
+    ${SOURCE_DIR}/src/Content.cpp
+    ${SOURCE_DIR}/src/input.cpp)
 
 # I don't believe we need to define HEADERS
 # set(HEADERS ${SOURCE_DIR}/include/*.h)

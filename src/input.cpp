@@ -1,6 +1,12 @@
 #include "../include/input.h"
 
-void TextEditor::handleEvent(const sf::Event& event) {
+input::input(sf::RenderWindow& wwindow, RenderEditor& eeditorView)
+    :window{wwindow} ,editorView{eeditorView}
+{
+
+}
+
+void input::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
         handleKeyPressed(event.key);
     } else if (event.type == sf::Event::MouseButtonPressed) {
@@ -11,7 +17,7 @@ void TextEditor::handleEvent(const sf::Event& event) {
     // ... other event types here ...
 }
 
-void TextEditor::handleKeyPressed(const sf::Event::KeyEvent& key) {
+void input::handleKeyPressed(const sf::Event::KeyEvent& key) {
     // handling key pressed events here...
 
     if (key.code == sf::Keyboard::Up) {
@@ -34,10 +40,27 @@ void TextEditor::handleKeyPressed(const sf::Event::KeyEvent& key) {
         // Handle other key presses here...
 }
 
-void TextEditor::handleMousePressed(const sf::Event::MouseButtonEvent& mouseButton) {
+void input::handleMousePressed(const sf::Event::MouseButtonEvent& mouseButton) {
     // handling mouse button pressed events here...
 }
 
-void TextEditor::handleTextEntered(const sf::Event::TextEvent& text) {
+void input::handleTextEntered(const sf::Event::TextEvent& text) {
     // handling text entered events here...
+}
+
+void input::moveCursorUp()
+{
+    this->editorView.updateCurPos(editorView.getCurrentCurPos().x,editorView.getCurrentCurPos().y-1);
+}
+void input::moveCursorDown()
+{
+    this->editorView.updateCurPos(editorView.getCurrentCurPos().x,editorView.getCurrentCurPos().y+1);
+}
+void input::moveCursorLeft()
+{
+    this->editorView.updateCurPos(editorView.getCurrentCurPos().x-1,editorView.getCurrentCurPos().y);
+}
+void input::moveCursorRight()
+{
+    this->editorView.updateCurPos(editorView.getCurrentCurPos().x+1,editorView.getCurrentCurPos().y);
 }

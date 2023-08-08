@@ -100,3 +100,14 @@ void RenderEditor::updateMaxNumberOfLines()
 {
     this->maxNumberOfLines = static_cast<int>(this->camera.getSize().y / fontSize);
 }
+
+void RenderEditor::updateCurPos(float x, float y)
+{
+    this->currentCurPos.x=x;
+    this->currentCurPos.y=y;
+}
+
+sf::Vector2f RenderEditor::getCurrentCurPos() const
+{
+    return currentCurPos;
+}

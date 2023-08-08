@@ -24,6 +24,10 @@ public:
 
     void updateMaxNumberOfLines();
 
+    void updateCurPos(float x, float y);
+
+    sf::Vector2f getCurrentCurPos() const;
+
 private:
     void drawLines(sf::RenderWindow &window);
     void drawcursor(sf::RenderWindow &window);

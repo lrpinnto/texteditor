@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "../include/document.h"
 #include "../include/RenderEditor.h"
+#include "../include/input.h"
 
 int main()
 {
@@ -17,6 +18,8 @@ int main()
 
     RenderEditor editorView{window, content};
 
+    input Input{window, editorView};
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -32,6 +35,8 @@ int main()
                 editorView.updateMaxNumberOfLines();
                 editorView.updateCursorMatrix();
             }
+
+            Input.handleEvent(event);
         }
         window.clear(backgroundColor);
         window.setView(editorView.getCameraView());
