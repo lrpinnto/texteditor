@@ -22,9 +22,11 @@ public:
 
     void updateCursorMatrix();
 
+    void updateMaxNumberOfLines();
+
 private:
     void drawLines(sf::RenderWindow &window);
-    void drawrectangles(sf::RenderWindow &window);
+    void drawcursor(sf::RenderWindow &window);
 
     Content &content;
 
@@ -35,4 +37,9 @@ private:
 
     // characterPosMatrix[X][Y]
     std::vector<std::vector<sf::Vector2f>> characterPosMatrix;
+
+    sf::Vector2f currentCurPos;
+
+    // Number of lines allowed inside the windows according to fontsize. 
+    int maxNumberOfLines;
 };

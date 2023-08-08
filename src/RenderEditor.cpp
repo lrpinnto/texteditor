@@ -2,20 +2,13 @@
 
 RenderEditor::RenderEditor(const sf::RenderWindow &window,
                            Content &ccontent)
-    : content{ccontent}
+    : content{ccontent}, currentCurPos{5,13}
 {
     // TEST WITHOUT MONOSPACE. 
     if(!this->font.loadFromFile("../fonts/RobotoMono-VariableFont_wght.ttf"))
         throw std::runtime_error("Font loading failed.");
 
     this->setFontSize(38);
-
-    // big matrix for testing purposes
-    characterPosMatrix.resize(100);
-    for (auto& i : characterPosMatrix)
-    {
-        i.resize(100); // 100 x 100 matrix. huge. doesnt need to be this big
-    }
 }
 
 // Draw everything, for cycle for line numbers
@@ -27,14 +20,16 @@ void RenderEditor::draw(sf::RenderWindow &window)
     rect.setFillColor(sf::Color::Black);
     window.draw(rect);
     this->drawLines(window);
-    this->drawrectangles(window);
+    this->drawcursor(window);
 }
 
 // Draw each lines from getLine()
 void RenderEditor::drawLines(sf::RenderWindow &window)
 {
+    // +1 because static_cast on maxNumberOfLines "does" a floor()
+
     // RE CHECK THIS CODE
-    for (size_t j = 0; j < static_cast<int>(this->camera.getSize().y / fontSize); j++) // set to floor instead of using casts?
+    for (size_t j = 0; j < maxNumberOfLines +1 ; j++) // set to floor instead of using casts?
     {
         sf::Text lineText;
         lineText.setFillColor(sf::Color::Black);
@@ -63,18 +58,19 @@ void RenderEditor::drawLines(sf::RenderWindow &window)
     }
 }
 
-void RenderEditor::drawrectangles(sf::RenderWindow &window)
+void RenderEditor::drawcursor(sf::RenderWindow &window)
 {
-    for (size_t j = 0; j < 40 ; j++) // 40 is arbitrary. 
+    // TEMPORARY. at() to avoid undefined behavior. Need a better solution?
+    if (currentCurPos.x<characterPosMatrix.size() && currentCurPos.y<characterPosMatrix[0].size())
     {
-        for (size_t i = 0; i < 40; i++)
-        {
-            sf::RectangleShape rect;
-            rect.setPosition(this->characterPosMatrix[i][j].x,this->characterPosMatrix[i][j].y);
-            rect.setSize(sf::Vector2f(1, fontSize));
-            rect.setFillColor(sf::Color::Red);
-            window.draw(rect);
-        }
+        float posx {this->characterPosMatrix.at(currentCurPos.x).at(currentCurPos.y).x};
+        float posy {this->characterPosMatrix.at(currentCurPos.x).at(currentCurPos.y).y};
+
+        sf::RectangleShape rect;
+        rect.setPosition(posx,posy);
+        rect.setSize(sf::Vector2f(1, fontSize));
+        rect.setFillColor(sf::Color::Red);
+        window.draw(rect);
     }
 }
 
@@ -85,10 +81,22 @@ void RenderEditor::setCameraBounds(int width, int height)
 
 void RenderEditor::setFontSize(int fontSize) {
     this->fontSize = fontSize;
+
+    updateMaxNumberOfLines();
+
+    updateCursorMatrix();
 }
 
 void RenderEditor::updateCursorMatrix()
 {
-    // Do I really need this? Cant I just use a big matrix?
-    //characterPosMatrix.resize(); 
+    this->characterPosMatrix.resize(100); //change this to some other number?
+    for (auto& i : characterPosMatrix)
+    {
+        i.resize(maxNumberOfLines); 
+    }
+}
+
+void RenderEditor::updateMaxNumberOfLines()
+{
+    this->maxNumberOfLines = static_cast<int>(this->camera.getSize().y / fontSize);
 }

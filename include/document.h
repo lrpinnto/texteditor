@@ -3,7 +3,16 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
-#include <sstream>
+#include <fstream>
+
+#if defined(_WIN32) || defined(_WIN64)
+#include <direct.h>
+#define GETCWD _getcwd
+#else
+#include <unistd.h>
+#define GETCWD getcwd
+#endif
+
 
 using Line = std::vector<char>;
 
@@ -32,7 +41,7 @@ public:
 class document
 {
 public:
-    document() { lines.push_back(Line{}); }
+    document() { }
     void init(const std::string&);
     Text_iterator begin();
     Text_iterator end();

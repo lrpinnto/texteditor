@@ -6,7 +6,7 @@ int main()
 {
     document doc;
 
-    doc.init("Test TExt");
+    doc.init("testdocument.txt");
 
     sf::RenderWindow window(sf::VideoMode(800, 600), "Text Editor");
     window.setVerticalSyncEnabled(true);
@@ -29,7 +29,8 @@ int main()
             if (event.type == sf::Event::Resized)
             {
                 editorView.setCameraBounds(event.size.width, event.size.height);
-                //editorView.updateCursorMatrix();
+                editorView.updateMaxNumberOfLines();
+                editorView.updateCursorMatrix();
             }
         }
         window.clear(backgroundColor);

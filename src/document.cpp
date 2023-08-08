@@ -42,13 +42,21 @@ sf::String document::getLine(int lineNumber) {
 }
 
 // TO DO: CHANGE THIS TO READ FILES
-void document::init(const std::string& text)
+void document::init(const std::string& filename)
 {
-    std::stringstream ss {"1 some text\n2 to test\n3 newlines\n4 on this window\nrandomrandomrandomrandomrandom"};
-    this->lines.push_front(std::vector<char>(text.begin(),text.end()));
-    std::string s;
-    while (std::getline(ss,s))
-    {
-        this->lines.push_front(std::vector<char>(s.begin(),s.end()));
+    char currentDir[FILENAME_MAX];
+    if (!GETCWD(currentDir, FILENAME_MAX)) 
+        throw std::runtime_error("Error retrieving current directory.");
+
+    std::ifstream file( static_cast<std::string>(currentDir) + "/../" + filename);
+    if(!file)
+        throw std::runtime_error("Unable to open file " + filename);
+
+    std::string line;
+
+    while (std::getline(file, line)) {
+        std::vector<char> lineVector(line.begin(), line.end());
+        lines.push_back(lineVector);
     }
+    file.close();
 }
