@@ -1,10 +1,8 @@
 #include "../include/input.h"
 
-input::input(sf::RenderWindow& wwindow, RenderEditor& eeditorView)
-    :window{wwindow} ,editorView{eeditorView}
-{
-
-}
+input::input(sf::RenderWindow& wwindow, RenderEditor& eeditorView, Content& contentt)
+    :window{wwindow} ,editorView{eeditorView}, content{contentt}
+{ }
 
 void input::handleEvent(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
@@ -79,6 +77,10 @@ void input::handleMousePressed(const sf::Event::MouseButtonEvent& mouseButton) {
 
 void input::handleTextEntered(const sf::Event::TextEvent& text) {
     // handling text entered events here...
+
+    char ch = static_cast<char>(text.unicode);
+    this->content.addTextToPos(ch, this->editorView.getCurrentCurPos().x, this->editorView.getCurrentCurPos().y);
+    this->editorView.updateCurPos(this->editorView.getCurrentCurPos().x+1, this->editorView.getCurrentCurPos().y);
 }
 
 void input::moveCursorUp()

@@ -60,3 +60,19 @@ void document::init(const std::string& filename)
     }
     file.close();
 }
+
+void document::addTextToPos(char ch, int x, int y)
+{
+    if (y < 0 || y >= lines.size()) {
+        throw std::runtime_error("Invalid line index: " + std::to_string(y));
+    }
+
+    auto lineIter = lines.begin();
+    std::advance(lineIter, y); // Move to the y-th line
+
+    if (x < 0 || x > lineIter->size()) {
+        throw std::runtime_error("Invalid character index in line: " + std::to_string(x));
+    }
+
+    lineIter->insert(lineIter->begin() + x, ch); // Insert character at the x-th position
+}

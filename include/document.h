@@ -46,6 +46,7 @@ public:
     Text_iterator begin();
     Text_iterator end();
     sf::String getLine(int lineNumber);
+    void addTextToPos(char ch, int x, int y);
 
 private:
     std::list<Line> lines;

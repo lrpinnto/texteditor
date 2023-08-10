@@ -2,11 +2,12 @@
 
 #include <SFML/Graphics.hpp>
 #include "./RenderEditor.h"
+#include "./Content.h"
 #include <iostream>
 
 class input {
 public:
-    input(sf::RenderWindow&, RenderEditor&);
+    input(sf::RenderWindow&, RenderEditor&, Content&);
 
     // Handle a single event (such as a key press or mouse click)
     void handleEvent(const sf::Event& event);
@@ -36,6 +37,8 @@ private:
     int cursorColumn; // Column position of the cursor
 
     RenderEditor& editorView;
+
+    Content& content;
 
     // Add more attributes as needed (e.g., selection, clipboard, etc.)
 };

@@ -18,7 +18,7 @@ int main()
 
     RenderEditor editorView{window, content};
 
-    input Input{window, editorView};
+    input Input{window, editorView, content};
 
     while (window.isOpen())
     {

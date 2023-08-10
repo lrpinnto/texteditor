@@ -110,6 +110,7 @@ void RenderEditor::setFontSize(int fontSize) {
 
 void RenderEditor::updateCursorMatrix()
 {
+    // THIS AMOUNT IS NOT ENOUGH. SHOULD FIND A WAY TO UPDATE ACCORDING TO AMOUNT OF TEXT ON LINE?
     this->characterPosMatrix.resize(100); //change this to some other number?
     for (auto& i : characterPosMatrix)
     {

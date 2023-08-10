@@ -14,3 +14,8 @@ sf::String Content::getLine(int lineNumber)
 {
     return this->doc.getLine(lineNumber);
 }
+
+void Content::addTextToPos(char ch, int x, int y)
+{
+    this->doc.addTextToPos(ch,x,y);
+}
