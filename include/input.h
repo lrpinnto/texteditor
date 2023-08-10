@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "./RenderEditor.h"
+#include <iostream>
 
 class input {
 public:

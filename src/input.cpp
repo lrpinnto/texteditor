@@ -42,6 +42,39 @@ void input::handleKeyPressed(const sf::Event::KeyEvent& key) {
 
 void input::handleMousePressed(const sf::Event::MouseButtonEvent& mouseButton) {
     // handling mouse button pressed events here...
+
+    auto mouseposx = mouseButton.x;
+    auto mouseposy = mouseButton.y;
+    sf::Vector2f mousepos {static_cast<float>(mouseposx),static_cast<float>(mouseposy)};
+
+    const auto& CharacterPosMatrix = this->editorView.getCharacterPosMatrix();
+
+    for (size_t indexX = 0 ; indexX < CharacterPosMatrix.size() ; indexX++)
+    {
+        const auto& yRow {CharacterPosMatrix[indexX]};
+    
+        auto it = std::upper_bound(yRow.begin(), yRow.end(), mousepos,
+            // No '<' operand defined for sf::Vector2f. Need to define it
+            [](const sf::Vector2f& lhs, const sf::Vector2f& rhs) {
+                return lhs.x < rhs.x && lhs.y < rhs.y;
+            }
+        );
+        if (it!=yRow.end())
+        {
+            size_t indexY = std::distance(yRow.begin(), it);
+            // Outputs the nearest "square" that is superior in both the x and y values to mousepos
+            std::cerr<<indexX<<" "<<indexY<<std::endl;
+            this->editorView.updateCurPos(indexX-1, indexY-1);
+            break; //found it
+        }
+    }
+
+    /*auto mousepos_text = window.mapPixelToCoords(mousepos);
+
+    std::pair<int, int> docCoords = textView.getDocumentCoords(mousepos_text.x, mousepos_text.y);
+    this->editorContent.createNewSelection(docCoords.first, docCoords.second);
+
+    this->mouseDown = true;*/
 }
 
 void input::handleTextEntered(const sf::Event::TextEvent& text) {

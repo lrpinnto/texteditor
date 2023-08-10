@@ -9,6 +9,13 @@ RenderEditor::RenderEditor(const sf::RenderWindow &window,
         throw std::runtime_error("Font loading failed.");
 
     this->setFontSize(38);
+
+    // NOTE: this needs to be updated everytime Fontsize changes. Add this later if necessary
+    sf::Text longCharacter;
+    longCharacter.setFont(this->font);
+    longCharacter.setCharacterSize(this->fontSize);
+    longCharacter.setString("_");
+    this->charWidth = longCharacter.getLocalBounds().width;
 }
 
 // Draw everything, for cycle for line numbers
@@ -60,6 +67,20 @@ void RenderEditor::drawLines(sf::RenderWindow &window)
 
 void RenderEditor::drawcursor(sf::RenderWindow &window)
 {
+    //DEBUGGING
+    for (const auto& i : this->characterPosMatrix)
+    {
+        for (const auto& j : i)
+        {
+            sf::RectangleShape rect;
+            rect.setPosition(j.x,j.y);
+            rect.setSize(sf::Vector2f(10, 10));
+            rect.setFillColor(sf::Color::Green);
+            window.draw(rect);
+        }
+    }
+    
+
     // TEMPORARY. at() to avoid undefined behavior. Need a better solution?
     if (currentCurPos.x<characterPosMatrix.size() && currentCurPos.y<characterPosMatrix[0].size())
     {
@@ -92,7 +113,8 @@ void RenderEditor::updateCursorMatrix()
     this->characterPosMatrix.resize(100); //change this to some other number?
     for (auto& i : characterPosMatrix)
     {
-        i.resize(maxNumberOfLines); 
+        // +1 to allow for not fully drawn lines to display the cursor
+        i.resize(maxNumberOfLines+1); 
     }
 }
 
@@ -110,4 +132,9 @@ void RenderEditor::updateCurPos(float x, float y)
 sf::Vector2f RenderEditor::getCurrentCurPos() const
 {
     return currentCurPos;
+}
+
+std::vector<std::vector<sf::Vector2f>> RenderEditor::getCharacterPosMatrix() const
+{
+    return this->characterPosMatrix;
 }

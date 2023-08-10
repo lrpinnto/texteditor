@@ -28,6 +28,10 @@ public:
 
     sf::Vector2f getCurrentCurPos() const;
 
+    std::vector<std::vector<sf::Vector2f>> getCharacterPosMatrix() const;
+
+    int getMaxNumberOfLines() const {return maxNumberOfLines;};
+
 private:
     void drawLines(sf::RenderWindow &window);
     void drawcursor(sf::RenderWindow &window);
@@ -36,14 +40,20 @@ private:
 
     sf::View camera;
     sf::Font font;
-    int fontSize; // WHERE SHOULD THIS BE SET?
+
+
+    // Font size, character height which is always constant
+    int fontSize; 
+    // Char width from a big character "_". Could be useful
     int charWidth;
 
     // characterPosMatrix[X][Y]
+    // WRITE A BETTER COMMENT EXPLAINING HOW IT WORKS
     std::vector<std::vector<sf::Vector2f>> characterPosMatrix;
 
+    // from 0,0 to +int,+int. Used as argument into characterPosMatrix to find real coordinates
     sf::Vector2f currentCurPos;
 
-    // Number of lines allowed inside the windows according to fontsize. 
+    // Number of lines allowed inside the windows according to fontsize. THIS IS THE NUMBER OF COMPLETE LINES WHERE THE WINDOWS DOESNT CUT HALFWAY THROUGH
     int maxNumberOfLines;
 };
